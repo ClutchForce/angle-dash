@@ -1,5 +1,51 @@
 <div class="component-container">
   <a routerLink="/home" class="home-button">🏠 Home</a>
-  <h1>Table Component</h1>
-  <p>This is a placeholder for the data table.</p>
+  <h1>Data Management</h1>
+
+  <div *ngIf="sheetService.loading()" class="status loading">Loading data...</div>
+  <div *ngIf="sheetService.error()" class="status error">{{ sheetService.error() }}</div>
+
+  <div class="add-row-section">
+    <h3>Add New Entry</h3>
+    <div class="row-form">
+      <input [(ngModel)]="newRow.Product_Name" placeholder="Product Name">
+      <input [(ngModel)]="newRow.Brand_Name" placeholder="Brand Name">
+      <input [(ngModel)]="newRow.Client_Name" placeholder="Client Name">
+      
+      <input type="number" [(ngModel)]="newRow.Product_Cost" placeholder="Cost">
+      <input type="number" [(ngModel)]="newRow.Total" placeholder="Total">
+      
+      <button (click)="onAddRow()" [disabled]="sheetService.loading()">+ Add Row</button>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Brand</th>
+          <th>Client</th>
+          <th>Cost</th>
+          <th>Total</th>
+          <th>HST/GST</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of sheetService.data(); let i = index">
+          <td><input [(ngModel)]="row.Product_Name"></td>
+          <td><input [(ngModel)]="row.Brand_Name"></td>
+          <td><input [(ngModel)]="row.Client_Name"></td>
+          <td><input type="number" [(ngModel)]="row.Product_Cost"></td>
+          <td><input type="number" [(ngModel)]="row.Total"></td>
+          <td><input type="number" [(ngModel)]="row.HST_GST"></td>
+          <td class="actions">
+            <button class="btn-save" (click)="onUpdateRow(i, row)" [disabled]="sheetService.loading()">💾</button>
+            <button class="btn-delete" (click)="onDeleteRow(i)" [disabled]="sheetService.loading()">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
