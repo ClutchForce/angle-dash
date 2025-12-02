@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-  "start": "ng serve",
-  "build": "ng build",
-  "build:ghpages": "ng build --output-path docs --base-href /angle-dash/ && cp -R docs/browser/* docs/ && cp -f docs/index.html docs/404.html && rm -rf docs/browser",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:ghpages": "ng build --output-path docs --base-href /angle-dash/ && cp -R docs/browser/* docs/ && cp -f docs/index.html docs/404.html && rm -rf docs/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.3.10",
-    "@angular/cli": "^20.3.10",
+    "@angular/cli": "^20.0.6",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
