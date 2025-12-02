@@ -1,5 +1,38 @@
-<div class="component-container">
-  <a routerLink="/home" class="home-button">🏠 Home</a>
-  <h1>Line Chart Component</h1>
-  <p>This is a placeholder for the line chart visualization.</p>
+<div class="stock-dashboard">
+  <header class="dashboard-header">
+    <h1>Real-Time Stock Price Monitor</h1>
+    <div class="connection-status">
+      <span class="status-indicator" [class.connected]="isConnected" [class.disconnected]="!isConnected"></span>
+      <span>{{ isConnected ? 'Connected' : 'Disconnected' }}</span>
+    </div>
+    <button class="clear-btn" (click)="clearData()">Clear Data</button>
+  </header>
+
+  <div class="stock-grid">
+    <div *ngFor="let symbol of getSymbols()" class="stock-card">
+      <div class="stock-header">
+        <h2>{{ symbol }}</h2>
+        <div class="latest-price" *ngIf="getLatestPrice(symbol) as latest">
+          <span class="price">${{ latest.averagePrice.toFixed(2) }}</span>
+          <span class="volume">Vol: {{ latest.totalVolume.toLocaleString() }}</span>
+        </div>
+      </div>
+
+      <div class="stock-data">
+        <div *ngFor="let dataPoint of getDataForSymbol(symbol)" class="data-row">
+          <span class="timestamp">{{ dataPoint.timestamp.toLocaleTimeString() }}</span>
+          <span class="price-value">${{ dataPoint.price.toFixed(2) }}</span>
+          <span class="volume-value">{{ dataPoint.volume.toLocaleString() }}</span>
+        </div>
+        
+        <div *ngIf="getDataForSymbol(symbol).length === 0" class="no-data">
+          Waiting for data...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="getSymbols().length === 0" class="empty-state">
+    <p>{{ isConnected ? 'Waiting for stock data...' : 'Connecting to server...' }}</p>
+  </div>
 </div>
