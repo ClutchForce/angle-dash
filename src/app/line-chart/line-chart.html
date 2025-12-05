@@ -1,11 +1,13 @@
 <div class="stock-dashboard">
   <header class="dashboard-header">
     <h1>Real-Time Stock Price Monitor</h1>
-    <div class="connection-status">
-      <span class="status-indicator" [class.connected]="isConnected" [class.disconnected]="!isConnected"></span>
-      <span>{{ isConnected ? 'Connected' : 'Disconnected' }}</span>
+    <div>
+        <div class="connection-status">
+            <span class="status-indicator" [class.connected]="isConnected" [class.disconnected]="!isConnected"></span>
+            <span>{{ isConnected ? 'Connected' : 'Disconnected' }}</span>
+        </div>
+        <button class="clear-btn" (click)="clearData()">Clear Data</button>
     </div>
-    <button class="clear-btn" (click)="clearData()">Clear Data</button>
   </header>
 
   <div class="stock-grid">

@@ -3,6 +3,7 @@
   max-width: 1400px;
   margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
 }
 
 .dashboard-header {
@@ -14,12 +15,21 @@
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap; /* Allows content to wrap on small screens */
+  gap: 15px; /* Adds space when items wrap */
 }
 
 .dashboard-header h1 {
   margin: 0;
   font-size: 24px;
   color: #333;
+}
+
+/* Group status and button for better mobile layout */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .connection-status {
@@ -54,6 +64,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
+  white-space: nowrap; /* Prevents text from breaking awkwardly */
 }
 
 .clear-btn:hover {
@@ -62,7 +73,8 @@
 
 .stock-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  /* CHANGED: Lowered min-width from 400px to 280px to fit mobile screens */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -71,6 +83,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  width: 100%; /* Ensure card takes available space */
 }
 
 .stock-header {
@@ -110,7 +123,7 @@
 .data-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
+  gap: 8px; /* Reduced gap slightly for mobile */
   padding: 10px 12px;
   margin-bottom: 8px;
   background: #f9fafb;
@@ -118,6 +131,7 @@
   font-size: 13px;
   transition: background 0.2s;
   animation: slideIn 0.3s ease-out;
+  align-items: center; /* Vertically center content */
 }
 
 @keyframes slideIn {
@@ -138,6 +152,7 @@
 .timestamp {
   color: #6b7280;
   font-weight: 500;
+  font-size: 12px; /* Slightly smaller for better fit */
 }
 
 .price-value {
@@ -182,4 +197,39 @@
 
 .stock-data::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* --- MOBILE SPECIFIC UPDATES --- */
+@media (max-width: 600px) {
+  .stock-dashboard {
+    padding: 12px; /* Reduce padding on mobile to save space */
+  }
+
+  .dashboard-header {
+    flex-direction: column; /* Stack title and controls */
+    align-items: flex-start;
+    padding: 16px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 20px; /* Reduce title size */
+    width: 100%;
+  }
+
+  /* Ensure controls span full width with space between */
+  .connection-status, .clear-btn {
+    margin-top: 10px;
+  }
+  
+  .dashboard-header > div:last-child {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .stock-grid {
+    grid-template-columns: 1fr; /* Force single column on mobile */
+    gap: 16px;
+  }
 }
