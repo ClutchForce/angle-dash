@@ -2,6 +2,36 @@
 
 A dashboard made with Angular
 
+## Project Architecture
+
+Using Render.com for hosting the applications and Confluent Cloud for managed Kafka services, the architecture is as follows:
+
+```
+Render.com                            Confluent Cloud 
+┌─────────────────────┐           ┌─────────────────────┐
+│  Market Simulator   │──────────▶│   Kafka Topics      │
+│   (Spring Boot)     │           │  raw-stock-ticks    │
+└─────────────────────┘           └──────────┬──────────┘
+                                             │
+┌─────────────────────┐                      │
+│  Stream Processor   │◀─────────────────────┤
+│ (Kafka Streams)     │─────────────────────▶|
+└─────────────────────┘           ┌──────────▼──────────┐
+                                  │   Kafka Topics      │
+┌─────────────────────┐           │averaged-stock-prices│
+│ Dashboard Backend   │◀──────────┴─────────────────────┘
+│  (WebSocket API)    │
+└──────────┬──────────┘
+           │
+           │ WebSocket (wss://)
+           │
+           ▼
+GitHub Pages
+┌─────────────────────┐
+│  Angular Frontend   │
+└─────────────────────┘
+```
+
 ## Setup
 
 1. Clone the repository:
