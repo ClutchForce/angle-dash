@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  websocketUrl: 'http://localhost:8082/ws/websocket'
+  websocketUrl: 'ws://localhost:8082/ws/websocket'
 };
