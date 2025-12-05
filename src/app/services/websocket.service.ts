@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client, IMessage } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface AveragedStockPrice {
   symbol: string;
@@ -21,11 +21,16 @@ export class WebSocketService {
   private connectionStatusSubject = new BehaviorSubject<boolean>(false);
 
   constructor() {
+    console.log('Connecting to WebSocket:', environment.websocketUrl);
+    
     this.client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8082/ws'),
+      brokerURL: environment.websocketUrl,
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
+      debug: (str) => {
+        console.log('STOMP Debug:', str);
+      },
       
       onConnect: () => {
         console.log('Connected to WebSocket');
