@@ -1,40 +1,85 @@
-<div class="stock-dashboard">
-  <header class="dashboard-header">
-    <h1>Real-Time Stock Price Monitor</h1>
-    <div>
-        <div class="connection-status">
-            <span class="status-indicator" [class.connected]="isConnected" [class.disconnected]="!isConnected"></span>
-            <span>{{ isConnected ? 'Connected' : 'Disconnected' }}</span>
-        </div>
-        <button class="clear-btn" (click)="clearData()">Clear Data</button>
+// ========================================
+// src/app/line-chart/line-chart.html
+// ========================================
+/*
+<div class="component-container">
+  <a routerLink="/home" class="home-button">🏠 Home</a>
+  
+  <div class="header">
+    <h1>Stock Candlestick Chart</h1>
+    <div class="connection-status" [class.connected]="isConnected" [class.disconnected]="!isConnected">
+      <span class="status-indicator"></span>
+      {{ connectionStatus }}
+      <button *ngIf="!isConnected" (click)="reconnect()" class="reconnect-btn">Reconnect</button>
     </div>
-  </header>
+  </div>
 
-  <div class="stock-grid">
-    <div *ngFor="let symbol of getSymbols()" class="stock-card">
-      <div class="stock-header">
-        <h2>{{ symbol }}</h2>
-        <div class="latest-price" *ngIf="getLatestPrice(symbol) as latest">
-          <span class="price">${{ latest.averagePrice.toFixed(2) }}</span>
-          <span class="volume">Vol: {{ latest.totalVolume.toLocaleString() }}</span>
-        </div>
+  <p>OHLC candlestick visualization from Kafka streams</p>
+
+  <div class="controls-container">
+    <div class="stock-selector">
+      <label for="stock-select">Select Stock:</label>
+      <select 
+        id="stock-select" 
+        [(ngModel)]="selectedStock" 
+        (change)="changeStock(selectedStock)"
+        class="stock-select"
+        [disabled]="availableStocks.length === 0">
+        <option *ngIf="availableStocks.length === 0" value="">Waiting for data...</option>
+        <option *ngFor="let symbol of availableStocks" [value]="symbol">
+          {{ symbol }}
+        </option>
+      </select>
+    </div>
+
+    <div class="ohlc-info">
+      <div class="info-card">
+        <span class="info-label">Open</span>
+        <span class="info-value open">${{ currentOpen.toFixed(2) }}</span>
       </div>
-
-      <div class="stock-data">
-        <div *ngFor="let dataPoint of getDataForSymbol(symbol)" class="data-row">
-          <span class="timestamp">{{ dataPoint.timestamp.toLocaleTimeString() }}</span>
-          <span class="price-value">${{ dataPoint.price.toFixed(2) }}</span>
-          <span class="volume-value">{{ dataPoint.volume.toLocaleString() }}</span>
-        </div>
-        
-        <div *ngIf="getDataForSymbol(symbol).length === 0" class="no-data">
-          Waiting for data...
-        </div>
+      <div class="info-card">
+        <span class="info-label">High</span>
+        <span class="info-value high">${{ currentHigh.toFixed(2) }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Low</span>
+        <span class="info-value low">${{ currentLow.toFixed(2) }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Close</span>
+        <span class="info-value close">${{ currentClose.toFixed(2) }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Volume</span>
+        <span class="info-value">{{ currentVolume.toLocaleString() }}</span>
       </div>
     </div>
   </div>
 
-  <div *ngIf="getSymbols().length === 0" class="empty-state">
-    <p>{{ isConnected ? 'Waiting for stock data...' : 'Connecting to server...' }}</p>
+  <div id="scichart-root" class="chart-container"></div>
+  
+  <div class="chart-info">
+    <h3>Chart Controls:</h3>
+    <ul>
+      <li><strong>Zoom:</strong> Mouse wheel or rubber band selection</li>
+      <li><strong>Pan:</strong> Click and drag</li>
+      <li><strong>Reset:</strong> Double-click to reset zoom</li>
+      <li><strong>Tooltip:</strong> Hover over candles for OHLC values</li>
+    </ul>
+    
+    <div class="candle-guide">
+      <h4>Reading Candlesticks:</h4>
+      <div class="candle-examples">
+        <div class="candle-example">
+          <div class="candle green"></div>
+          <p><strong>Green:</strong> Close > Open (Bullish)</p>
+        </div>
+        <div class="candle-example">
+          <div class="candle red"></div>
+          <p><strong>Red:</strong> Close < Open (Bearish)</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+*/
