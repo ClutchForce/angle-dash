@@ -28,6 +28,7 @@ export class LineChart implements OnInit, OnDestroy {
 
   constructor(private webSocketService: WebSocketService) {}
 
+  // Lifecycle hook: Initialize component and set up subscriptions
   ngOnInit(): void {
     // Connect to WebSocket
     this.webSocketService.connect();

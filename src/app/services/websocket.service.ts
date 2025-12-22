@@ -11,12 +11,13 @@ export interface AveragedStockPrice {
   windowStart: string;
   windowEnd: string;
 }
-
+// Singleton WebSocket service to manage connection and data flow
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
   private client: Client;
+  // Observer Pattern: Components can subscribe to these subjects to get updates
   private stockPricesSubject = new BehaviorSubject<AveragedStockPrice | null>(null);
   private connectionStatusSubject = new BehaviorSubject<boolean>(false);
 
